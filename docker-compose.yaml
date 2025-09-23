@@ -1,0 +1,14 @@
+services:
+  ingestion-webmvc:
+    build: .
+    container_name: ingestion-webmvc
+    environment:
+      - SERVER_PORT=8182
+    ports:
+      - "8182:8182"
+    networks:
+      - reactive-ms-network
+
+networks:
+  reactive-ms-network:
+    external: true
