@@ -16,13 +16,17 @@ spring:
 #                 multiplier: 1.1
 #     config:
 #         import: "optional:configserver:"
-
     cassandra:
         contact-points: localhost
         port: 9042
         local-datacenter: datacenter1
         keyspace-name: ingestion_mvc
         schema-action: create_if_not_exists
+    data:
+        redis:
+            database: 2
+            host: localhost
+            port: 6379
 
 # eureka:
 #     client:

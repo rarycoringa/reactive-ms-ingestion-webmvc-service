@@ -15,4 +15,5 @@ public class WebConfig implements WebMvcConfigurer {
             c -> c.isAnnotationPresent(RestController.class)
         );
     }
+    
 }
