@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "dee9a9a0-c926-4a51-a1e0-1403b101420b",
+		"name": "Ingestion  WebMVC - Rest API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16773296",
+		"_collection_link": "https://red-equinox-206486.postman.co/workspace/Voltaware~e6f4f627-69a5-4c0b-9c5d-5e6d1fb14255/collection/16773296-dee9a9a0-c926-4a51-a1e0-1403b101420b?action=share&source=collection_link&creator=16773296"
+	},
+	"item": [
+		{
+			"name": "/{id}/pressure",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"systolic_value\": 120,\n    \"diastolic_value\": 80\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/1/pressure",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"pressure"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/{id}/pressure",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/1/pressure?start=2025-09-22T18:30:00&end=2025-09-26T18:45:00",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"pressure"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2025-09-22T18:30:00"
+						},
+						{
+							"key": "end",
+							"value": "2025-09-26T18:45:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/{id}/heart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 65\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/1/heart",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"heart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/{id}/heart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/1/heart?start=2025-09-22T18:30:00&end=2025-09-22T18:45:00",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"heart"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2025-09-22T18:30:00"
+						},
+						{
+							"key": "end",
+							"value": "2025-09-22T18:45:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/{id}/saturation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": 97\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/1/saturation",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"saturation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/{id}/saturation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/1/saturation?start=2025-09-22T18:30:00&end=2025-09-22T18:45:00",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2025-09-22T18:30:00"
+						},
+						{
+							"key": "end",
+							"value": "2025-09-22T18:45:00"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
