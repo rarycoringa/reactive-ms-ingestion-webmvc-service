@@ -15,9 +15,6 @@ import br.edu.ufrn.ingestion.model.OxygenSaturationModel;
 import br.edu.ufrn.ingestion.record.BloodPressure;
 import br.edu.ufrn.ingestion.record.HeartRate;
 import br.edu.ufrn.ingestion.record.OxygenSaturation;
-import br.edu.ufrn.ingestion.record.request.BloodPressureRequest;
-import br.edu.ufrn.ingestion.record.request.HeartRateRequest;
-import br.edu.ufrn.ingestion.record.request.OxygenSaturationRequest;
 import br.edu.ufrn.ingestion.record.response.BloodPressureResponse;
 import br.edu.ufrn.ingestion.record.response.HeartRateResponse;
 import br.edu.ufrn.ingestion.record.response.OxygenSaturationResponse;
@@ -36,6 +33,20 @@ public class IngestionService {
 
     @Autowired
     private OxygenSaturationRepository oxygenSaturationRepository;
+
+    public BloodPressureResponse createBloodPressure(int patientId, BloodPressure bloodPressure) {
+        BloodPressureModel bloodPressureModel = new BloodPressureModel(
+            patientId, Instant.now(), bloodPressure.systolicValue(), bloodPressure.diastolicValue()
+        );
+
+        bloodPressureModel = bloodPressureRepository.save(bloodPressureModel);
+
+        BloodPressureResponse bloodPressureResponse = new BloodPressureResponse(
+            bloodPressureModel.getPatientId(), bloodPressureModel.getRegisteredAt(), bloodPressure
+        );
+
+        return bloodPressureResponse;
+    }
 
     public List<BloodPressureResponse> retrieveBloodPressure(int patientId, LocalDateTime start, LocalDateTime end) {
         Instant startAsInstant = start.atZone(ZoneOffset.UTC).toInstant();
@@ -56,18 +67,18 @@ public class IngestionService {
         return bloodPressureList;
     }
 
-    public BloodPressureResponse createBloodPressure(BloodPressureRequest request) {
-        BloodPressureModel bloodPressureModel = new BloodPressureModel(
-            request.patientId(), Instant.now(), request.bloodPressure().systolicValue(), request.bloodPressure().diastolicValue()
+    public HeartRateResponse createHeartRate(int patientId, HeartRate heartRate) {
+        HeartRateModel heartRateModel = new HeartRateModel(
+            patientId, Instant.now(), heartRate.value()
         );
 
-        bloodPressureModel = bloodPressureRepository.save(bloodPressureModel);
+        heartRateModel = heartRateRepository.save(heartRateModel);
 
-        BloodPressureResponse bloodPressureResponse = new BloodPressureResponse(
-            bloodPressureModel.getPatientId(), bloodPressureModel.getRegisteredAt(), request.bloodPressure()
+        HeartRateResponse heartRateResponse = new HeartRateResponse(
+            heartRateModel.getPatientId(), heartRateModel.getRegisteredAt(), heartRate
         );
 
-        return bloodPressureResponse;
+        return heartRateResponse;
     }
 
     public List<HeartRateResponse> retrieveHeartRate(int patientId, LocalDateTime start, LocalDateTime end) {
@@ -89,18 +100,18 @@ public class IngestionService {
         return heartRateList;
     }
 
-    public HeartRateResponse createHeartRate(HeartRateRequest request) {
-        HeartRateModel heartRateModel = new HeartRateModel(
-            request.patientId(), Instant.now(), request.heartRate().value()
+    public OxygenSaturationResponse createOxygenSaturation(int patientId, OxygenSaturation oxygenSaturation) {
+        OxygenSaturationModel oxygenSaturationModel = new OxygenSaturationModel(
+            patientId, Instant.now(), oxygenSaturation.value()
         );
 
-        heartRateModel = heartRateRepository.save(heartRateModel);
+        oxygenSaturationModel = oxygenSaturationRepository.save(oxygenSaturationModel);
 
-        HeartRateResponse heartRateResponse = new HeartRateResponse(
-            heartRateModel.getPatientId(), heartRateModel.getRegisteredAt(), request.heartRate()
+        OxygenSaturationResponse oxygenSaturationResponse = new OxygenSaturationResponse(
+            oxygenSaturationModel.getPatientId(), oxygenSaturationModel.getRegisteredAt(), oxygenSaturation
         );
 
-        return heartRateResponse;
+        return oxygenSaturationResponse;
     }
 
     public List<OxygenSaturationResponse> retrieveOxygenSaturation(int patientId, LocalDateTime start, LocalDateTime end) {
@@ -120,20 +131,6 @@ public class IngestionService {
             .collect(Collectors.toList());
         
         return oxygenSaturationList;
-    }
-
-    public OxygenSaturationResponse createOxygenSaturation(OxygenSaturationRequest request) {
-        OxygenSaturationModel oxygenSaturationModel = new OxygenSaturationModel(
-            request.patientId(), Instant.now(), request.oxygenSaturation().value()
-        );
-
-        oxygenSaturationModel = oxygenSaturationRepository.save(oxygenSaturationModel);
-
-        OxygenSaturationResponse oxygenSaturationResponse = new OxygenSaturationResponse(
-            oxygenSaturationModel.getPatientId(), oxygenSaturationModel.getRegisteredAt(), request.oxygenSaturation()
-        );
-
-        return oxygenSaturationResponse;
     }
 
 }
