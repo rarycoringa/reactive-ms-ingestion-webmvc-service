@@ -1,6 +1,6 @@
 package br.edu.ufrn.ingestion.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
@@ -9,14 +9,14 @@ public abstract class BaseMetricModel {
     @PrimaryKeyColumn(name = "patient_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     private int patientId;
 
-    @PrimaryKeyColumn(name = "created_at", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
-    private Instant registeredAt;
+    @PrimaryKeyColumn(name = "timestamp", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
+    private LocalDateTime timestamp;
 
     public BaseMetricModel() {}
 
-    public BaseMetricModel(int patientId, Instant registeredAt) {
+    public BaseMetricModel(int patientId, LocalDateTime timestamp) {
         this.patientId = patientId;
-        this.registeredAt = registeredAt;
+        this.timestamp = timestamp;
     }
 
     public int getPatientId() {
@@ -27,12 +27,12 @@ public abstract class BaseMetricModel {
         this.patientId = patientId;
     }
 
-    public Instant getRegisteredAt() {
-        return registeredAt;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setRegisteredAt(Instant registeredAt) {
-        this.registeredAt = registeredAt;
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
 }

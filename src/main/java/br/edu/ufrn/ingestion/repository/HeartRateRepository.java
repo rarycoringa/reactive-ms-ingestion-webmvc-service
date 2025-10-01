@@ -1,6 +1,6 @@
 package br.edu.ufrn.ingestion.repository;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.cassandra.repository.CassandraRepository;
@@ -11,10 +11,10 @@ import br.edu.ufrn.ingestion.model.HeartRateModel;
 @Repository
 public interface HeartRateRepository extends CassandraRepository<HeartRateModel, HeartRateModel> {
     
-    List<HeartRateModel> findByPatientIdAndRegisteredAtBetween(
+    List<HeartRateModel> findByPatientIdAndTimestampBetween(
         int patientId,
-        Instant start,
-        Instant end
+        LocalDateTime start,
+        LocalDateTime end
     );
 
 }

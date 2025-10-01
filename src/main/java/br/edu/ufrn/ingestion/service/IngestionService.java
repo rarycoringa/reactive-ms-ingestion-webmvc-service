@@ -1,8 +1,7 @@
 package br.edu.ufrn.ingestion.service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,102 +34,109 @@ public class IngestionService {
     private OxygenSaturationRepository oxygenSaturationRepository;
 
     public BloodPressureResponse createBloodPressure(int patientId, BloodPressure bloodPressure) {
+        LocalDateTime timestamp = LocalDateTime
+            .now()
+            .truncatedTo(ChronoUnit.SECONDS);
+        
         BloodPressureModel bloodPressureModel = new BloodPressureModel(
-            patientId, Instant.now(), bloodPressure.systolicValue(), bloodPressure.diastolicValue()
+            patientId,
+            timestamp,
+            bloodPressure.systolicValue(),
+            bloodPressure.diastolicValue()
         );
 
         bloodPressureModel = bloodPressureRepository.save(bloodPressureModel);
 
-        BloodPressureResponse bloodPressureResponse = new BloodPressureResponse(
-            bloodPressureModel.getPatientId(), bloodPressureModel.getRegisteredAt(), bloodPressure
+        return new BloodPressureResponse(
+            bloodPressureModel.getPatientId(),
+            bloodPressureModel.getTimestamp(),
+            bloodPressure
         );
-
-        return bloodPressureResponse;
     }
 
     public List<BloodPressureResponse> retrieveBloodPressure(int patientId, LocalDateTime start, LocalDateTime end) {
-        Instant startAsInstant = start.atZone(ZoneOffset.UTC).toInstant();
-        Instant endAsInstant = end.atZone(ZoneOffset.UTC).toInstant();
-        
-        List<BloodPressureModel> bloodPressureModelList = bloodPressureRepository.findByPatientIdAndRegisteredAtBetween(
-            patientId, startAsInstant, endAsInstant
+        List<BloodPressureModel> bloodPressureModelList = bloodPressureRepository.findByPatientIdAndTimestampBetween(
+            patientId, start, end
         );
         
-        List<BloodPressureResponse> bloodPressureList = bloodPressureModelList.stream()
+        return bloodPressureModelList
+            .stream()
             .map(model -> new BloodPressureResponse(
                 model.getPatientId(),
-                model.getRegisteredAt(),
+                model.getTimestamp(),
                 new BloodPressure(model.getSystolicValue(), model.getDiastolicValue())
             ))
             .collect(Collectors.toList());
-        
-        return bloodPressureList;
     }
 
     public HeartRateResponse createHeartRate(int patientId, HeartRate heartRate) {
+        LocalDateTime timestamp = LocalDateTime
+            .now()
+            .truncatedTo(ChronoUnit.SECONDS);
+        
         HeartRateModel heartRateModel = new HeartRateModel(
-            patientId, Instant.now(), heartRate.value()
+            patientId,
+            timestamp,
+            heartRate.value()
         );
 
         heartRateModel = heartRateRepository.save(heartRateModel);
 
-        HeartRateResponse heartRateResponse = new HeartRateResponse(
-            heartRateModel.getPatientId(), heartRateModel.getRegisteredAt(), heartRate
+        return new HeartRateResponse(
+            heartRateModel.getPatientId(),
+            heartRateModel.getTimestamp(),
+            heartRate
         );
-
-        return heartRateResponse;
     }
 
     public List<HeartRateResponse> retrieveHeartRate(int patientId, LocalDateTime start, LocalDateTime end) {
-        Instant startAsInstant = start.atZone(ZoneOffset.UTC).toInstant();
-        Instant endAsInstant = end.atZone(ZoneOffset.UTC).toInstant();
-        
-        List<HeartRateModel> heartRateModelList = heartRateRepository.findByPatientIdAndRegisteredAtBetween(
-            patientId, startAsInstant, endAsInstant
+        List<HeartRateModel> heartRateModelList = heartRateRepository.findByPatientIdAndTimestampBetween(
+            patientId, start, end
         );
         
-        List<HeartRateResponse> heartRateList = heartRateModelList.stream()
+        return heartRateModelList
+            .stream()
             .map(model -> new HeartRateResponse(
                 model.getPatientId(),
-                model.getRegisteredAt(),
+                model.getTimestamp(),
                 new HeartRate(model.getValue())
             ))
             .collect(Collectors.toList());
-        
-        return heartRateList;
     }
 
     public OxygenSaturationResponse createOxygenSaturation(int patientId, OxygenSaturation oxygenSaturation) {
+        LocalDateTime timestamp = LocalDateTime
+            .now()
+            .truncatedTo(ChronoUnit.SECONDS);
+        
         OxygenSaturationModel oxygenSaturationModel = new OxygenSaturationModel(
-            patientId, Instant.now(), oxygenSaturation.value()
+            patientId,
+            timestamp,
+            oxygenSaturation.value()
         );
 
         oxygenSaturationModel = oxygenSaturationRepository.save(oxygenSaturationModel);
 
-        OxygenSaturationResponse oxygenSaturationResponse = new OxygenSaturationResponse(
-            oxygenSaturationModel.getPatientId(), oxygenSaturationModel.getRegisteredAt(), oxygenSaturation
+        return new OxygenSaturationResponse(
+            oxygenSaturationModel.getPatientId(),
+            oxygenSaturationModel.getTimestamp(),
+            oxygenSaturation
         );
-
-        return oxygenSaturationResponse;
     }
 
     public List<OxygenSaturationResponse> retrieveOxygenSaturation(int patientId, LocalDateTime start, LocalDateTime end) {
-        Instant startAsInstant = start.atZone(ZoneOffset.UTC).toInstant();
-        Instant endAsInstant = end.atZone(ZoneOffset.UTC).toInstant();
-        
-        List<OxygenSaturationModel> oxygenSaturationModelList = oxygenSaturationRepository.findByPatientIdAndRegisteredAtBetween(
-            patientId, startAsInstant, endAsInstant
+        List<OxygenSaturationModel> oxygenSaturationModelList = oxygenSaturationRepository.findByPatientIdAndTimestampBetween(
+            patientId, start, end
         );
         
-        List<OxygenSaturationResponse> oxygenSaturationList = oxygenSaturationModelList.stream()
+        return oxygenSaturationModelList
+            .stream()
             .map(model -> new OxygenSaturationResponse(
                 model.getPatientId(),
-                model.getRegisteredAt(),
+                model.getTimestamp(),
                 new OxygenSaturation(model.getValue())
             ))
             .collect(Collectors.toList());
-        
-        return oxygenSaturationList;
     }
 
 }

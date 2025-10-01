@@ -1,6 +1,6 @@
 package br.edu.ufrn.ingestion.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -16,8 +16,8 @@ public class BloodPressureModel extends BaseMetricModel {
 
     public BloodPressureModel() {}
 
-    public BloodPressureModel(int patientId, Instant generatedAt, int systolicValue, int diastolicValue) {
-        super(patientId, generatedAt);
+    public BloodPressureModel(int patientId, LocalDateTime timestamp, int systolicValue, int diastolicValue) {
+        super(patientId, timestamp);
         this.systolicValue = systolicValue;
         this.diastolicValue = diastolicValue;
     }

@@ -1,6 +1,6 @@
 package br.edu.ufrn.ingestion.model;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -13,8 +13,8 @@ public class OxygenSaturationModel extends BaseMetricModel {
 
     public OxygenSaturationModel() {}
 
-    public OxygenSaturationModel(int patientId, Instant registeredAt, int value) {
-        super(patientId, registeredAt);
+    public OxygenSaturationModel(int patientId, LocalDateTime timestamp, int value) {
+        super(patientId, timestamp);
         this.value = value;
     }
 
